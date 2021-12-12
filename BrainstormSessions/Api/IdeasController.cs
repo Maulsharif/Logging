@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BrainstormSessions.ClientModels;
 using BrainstormSessions.Core.Interfaces;
 using BrainstormSessions.Core.Model;
+using BrainstormSessions.LoggingService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BrainstormSessions.Api
@@ -101,6 +102,7 @@ namespace BrainstormSessions.Api
         {
             if (!ModelState.IsValid)
             {
+                Logger.Error("error");
                 return BadRequest(ModelState);
             }
 
@@ -108,6 +110,7 @@ namespace BrainstormSessions.Api
 
             if (session == null)
             {
+                Logger.Error("error");
                 return NotFound(model.SessionId);
             }
 
