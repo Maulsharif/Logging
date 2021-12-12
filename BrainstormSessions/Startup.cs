@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace BrainstormSessions
 {
@@ -27,8 +28,10 @@ namespace BrainstormSessions
 
         public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider, 
+            ILoggerFactory loggerFactory)
         {
+              loggerFactory.AddLog4Net("log4net.config"); 
             if (env.IsDevelopment())
             {
                 var repository = serviceProvider.GetRequiredService<IBrainstormSessionRepository>();
@@ -46,6 +49,7 @@ namespace BrainstormSessions
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+          
         }
 
         public async Task InitializeDatabaseAsync(IBrainstormSessionRepository repo)
